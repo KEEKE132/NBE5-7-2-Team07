@@ -31,9 +31,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant execute permission for gradlew
-        run: chmod +x ./backend/gradlew
+        run: chmod +x ./Backend/gradlew
 
-      - name: Run backend tests
+      - name: Run Backend tests
         run: |
           cd Backend
           ./gradlew test
@@ -44,16 +44,16 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: Frontend/luckeyseven/package-lock.json
 
-      - name: Install frontend dependencies
+      - name: Install Frontend dependencies
         run: |
           cd Frontend/luckeyseven
           npm ci
 
       - name: Run frontend tests
         run: |
-          cd frontend
+          cd Frontend/luckeyseven
           npm test -- --coverage --watchAll=false
 
   build:
@@ -72,11 +72,11 @@ jobs:
           distribution: 'temurin'
 
       - name: Grant execute permission for gradlew
-        run: chmod +x ./backend/gradlew
+        run: chmod +x ./Backend/gradlew
 
-      - name: Build backend with Gradle
+      - name: Build Backend with Gradle
         run: |
-          cd backend
+          cd Backend
           ./gradlew build -x test
 
       # 프론트엔드 빌드
@@ -85,16 +85,16 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: Frontend/luckeyseven/package-lock.json
 
       - name: Install frontend dependencies
         run: |
-          cd frontend
+          cd Frontend/luckeyseven
           npm ci
 
       - name: Build frontend
         run: |
-          cd frontend
+          cd Frontend/luckeyseven
           npm run build
 
       # Docker Hub 로그인
@@ -141,8 +141,8 @@ jobs:
             docker-compose down || true
             
             # 최신 이미지 풀
-            docker pull ${{ env.DOCKER_USERNAME }}/your-app-backend:${{ github.sha }}
-            docker pull ${{ env.DOCKER_USERNAME }}/your-app-frontend:${{ github.sha }}
+            docker pull ${{ env.DOCKER_USERNAME }}/your-app-Backend:${{ github.sha }}
+            docker pull ${{ env.DOCKER_USERNAME }}/your-app-Frontend:${{ github.sha }}
             
             # 환경 변수 설정
             export DOCKER_USERNAME=${{ env.DOCKER_USERNAME }}
