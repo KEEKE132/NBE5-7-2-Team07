@@ -138,6 +138,8 @@ jobs:
           username: ${{ env.EC2_USERNAME }}
           key: ${{ env.EC2_SSH_KEY }}
           script: |
+            echo "Deploying to EC2 instance..."
+            echo "make environment variables"
             # 환경변수를 .env 파일로 저장
             cat > .env << EOF
             DOCKER_USERNAME=${{ env.DOCKER_USERNAME }}
@@ -148,16 +150,20 @@ jobs:
             EOF
             
             # 기존 컨테이너 중지 및 제거
+            ehco "Stopping and removing existing containers..."
             sudo docker compose down || true
             
             # 최신 이미지 풀
+            echo "Pulling latest Docker images..."
             sudo docker pull ${{ env.DOCKER_USERNAME }}/your-app-backend:${{ github.sha }}
             sudo docker pull ${{ env.DOCKER_USERNAME }}/your-app-frontend:${{ github.sha }}
             
             
             
             # Docker Compose로 애플리케이션 실행
+            echo "Starting application with Docker Compose..."
             sudo docker compose up -d
             
             # 사용하지 않는 이미지 정리
+            echo "Cleaning up unused Docker images..."
             sudo docker image prune -f
