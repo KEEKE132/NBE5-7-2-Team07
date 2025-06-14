@@ -115,6 +115,7 @@ jobs:
         run: |
           export DOCKER_USERNAME=${{ env.DOCKER_USERNAME }}
           export GITHUB_SHA=${{ github.sha }}
+          export COMPOSE_BAKE=true
           docker compose build
 
       # 이미지에 latest 태그 추가 및 Docker Hub에 푸시
