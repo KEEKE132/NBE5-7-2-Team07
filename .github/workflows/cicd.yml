@@ -149,7 +149,6 @@ jobs:
             # 환경변수를 .env 파일로 저장
             cat > .env << EOF
             DOCKER_USERNAME=${{ env.DOCKER_USERNAME }}
-            GITHUB_SHA=${{ github.sha }}
             DB_URL=${{ env.DB_URL }}
             DB_USERNAME=${{ env.DB_USERNAME }}
             DB_PASSWORD=${{ env.DB_PASSWORD }}
@@ -161,8 +160,8 @@ jobs:
             
             # 최신 이미지 풀
             echo "Pulling latest Docker images..."
-            sudo docker pull ${{ env.DOCKER_USERNAME }}/your-app-backend:${{ github.sha }}
-            sudo docker pull ${{ env.DOCKER_USERNAME }}/your-app-frontend:${{ github.sha }}
+            sudo docker pull ${{ env.DOCKER_USERNAME }}/your-app-backend:latest
+            sudo docker pull ${{ env.DOCKER_USERNAME }}/your-app-frontend:latest
             
             
             
