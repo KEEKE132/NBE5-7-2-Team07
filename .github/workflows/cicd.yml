@@ -149,8 +149,8 @@ jobs:
             sudo docker compose down || true
             
             # 최신 이미지 풀
-            sudo docker pull ${{ env.DOCKER_USERNAME }}/your-app-backend:${{ github.sha }}
-            sudo docker pull ${{ env.DOCKER_USERNAME }}/your-app-frontend:${{ github.sha }}
+            sudo docker pull $DOCKER_USERNAME/your-app-backend:$GITHUB_SHA
+            sudo docker pull $DOCKER_USERNAME/your-app-frontend:$GITHUB_SHA
             
             
             
