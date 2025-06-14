@@ -1,0 +1,17 @@
+# docker-compose.build.yml (빌드 전용 - 선택사항)
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production  # 멀티 스테이지 빌드를 사용하는 경우
+    image: ${DOCKER_USERNAME}/your-app-backend:${GITHUB_SHA:-latest}
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production  # 멀티 스테이지 빌드를 사용하는 경우
+    image: ${DOCKER_USERNAME}/your-app-frontend:${GITHUB_SHA:-latest}
