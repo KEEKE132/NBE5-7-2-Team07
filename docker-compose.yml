@@ -5,12 +5,10 @@ services:
     build:
       context: ./Backend
       dockerfile: Dockerfile
-      target: production  # 멀티 스테이지 빌드를 사용하는 경우
     image: ${DOCKER_USERNAME}/your-app-backend:${GITHUB_SHA:-latest}
 
   frontend:
     build:
       context: ./Frontend/luckeyseven
       dockerfile: Dockerfile
-      target: production  # 멀티 스테이지 빌드를 사용하는 경우
     image: ${DOCKER_USERNAME}/your-app-frontend:${GITHUB_SHA:-latest}
