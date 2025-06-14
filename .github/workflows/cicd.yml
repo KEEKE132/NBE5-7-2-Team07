@@ -138,19 +138,21 @@ jobs:
           username: ${{ env.EC2_USERNAME }}
           key: ${{ env.EC2_SSH_KEY }}
           script: |
-            # 환경 변수 설정
-            export DOCKER_USERNAME=${{ env.DOCKER_USERNAME }}
-            export GITHUB_SHA=${{ github.sha }}
-            export DB_URL=${{ env.DB_URL }}
-            export DB_USERNAME=${{ env.DB_USERNAME }}
-            export DB_PASSWORD=${{ env.DB_PASSWORD }}
+            # 환경변수를 .env 파일로 저장
+            cat > .env << EOF
+            DOCKER_USERNAME=${{ env.DOCKER_USERNAME }}
+            GITHUB_SHA=${{ github.sha }}
+            DB_URL=${{ env.DB_URL }}
+            DB_USERNAME=${{ env.DB_USERNAME }}
+            DB_PASSWORD=${{ env.DB_PASSWORD }}
+            EOF
             
             # 기존 컨테이너 중지 및 제거
             sudo docker compose down || true
             
             # 최신 이미지 풀
-            sudo docker pull $DOCKER_USERNAME/your-app-backend:$GITHUB_SHA
-            sudo docker pull $DOCKER_USERNAME/your-app-frontend:$GITHUB_SHA
+            sudo docker pull ${{ env.DOCKER_USERNAME }}/your-app-backend:${{ github.sha }}
+            sudo docker pull ${{ env.DOCKER_USERNAME }}/your-app-frontend:${{ github.sha }}
             
             
             
