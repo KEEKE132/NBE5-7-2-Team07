@@ -122,6 +122,12 @@ jobs:
       - name: Tag and push images to Docker Hub
         run: |
           docker compose push
+          
+          docker tag ${{ env.DOCKER_USERNAME }}/your-app-backend:${{ github.sha }} ${{ env.DOCKER_USERNAME }}/your-app-backend:latest
+          docker tag ${{ env.DOCKER_USERNAME }}/your-app-frontend:${{ github.sha }} ${{ env.DOCKER_USERNAME }}/your-app-frontend:latest
+          
+          docker push ${{ env.DOCKER_USERNAME }}/your-app-backend:latest
+          docker push ${{ env.DOCKER_USERNAME }}/your-app-frontend:latest
 
   deploy:
     needs: build
