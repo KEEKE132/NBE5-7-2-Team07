@@ -115,12 +115,12 @@ jobs:
         run: |
           export DOCKER_USERNAME=${{ env.DOCKER_USERNAME }}
           export GITHUB_SHA=${{ github.sha }}
-          docker-compose build
+          docker compose build
 
       # 이미지에 latest 태그 추가 및 Docker Hub에 푸시
       - name: Tag and push images to Docker Hub
         run: |
-          docker-compose push
+          docker compose push
 
   deploy:
     needs: build
